@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Banka.Data.Classes
 {
-    public class BankaVeri
-    {
+    public class BankaVeri   //Bankanın tüm bilgilerinin tutulduğu yer.
+    {   
         public Islemler Islemler { get; set; } = new();
 
         public Numarator Numarator { get; set; } = new();

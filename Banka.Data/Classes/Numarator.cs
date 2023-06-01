@@ -9,29 +9,35 @@ namespace Banka.Data.Classes
 {
     public class Numarator
     {
-        private static int _vipSiraNo = 1000;
-        private static int _bireyselSiraNo = 2000;
-        private static int _giseSiraNo = 3000;
+        BankaVeri db = new BankaVeri();
 
-        public void SiraVer(Musteri musteri, SiradaBekleyenMusteriler siradakiMusteriler)
+        private static int _vipSiraNo = 1000; //Vip müşteriler için sıra numaraları 1000'den başlıyor.
+        private static int _normalSiraNo = 2000; //Normal müşteriler içinse 2000'den başlıyor. 
+
+        public void SiraVer(Musteri musteri)
         {
-            if (musteri.TcNo.StartsWith('1'))
+            musteri.OncelikliMi = musteri.TcNo.StartsWith('1') ? true : false; //Bankanın vip müşterilerini anlaması için tc numarası '1' ile başlayan tüm müşteriler vip müşteri olarak kabul ediliyor. Buna göre müşterinin öncelikli mi değil mi olduğu atanıyor.
+
+            if (musteri.OncelikliMi) //Müşteri öncelikliyse yapacağı işlemin tipi vip olarak atnıyor ve gişenin sıradaki müşterilerine eklenerek uygun sıra numarası veriliyor.
             {
                 musteri.YapilacakIslem.IslemTipi = Enums.IslemTipi.Vip;
-                siradakiMusteriler.Add(musteri);
+                db.Gise.SiradakiMusteriler.Add(musteri);
                 musteri.SiraNo = _vipSiraNo++;
             }
-            else if (musteri.TcNo.StartsWith('2'))
+            else //Müşteri öncelikli değilse aynı şekilde yapacağı işlem tipine göre atama yapılıp gişenin sıradaki müşterilerine ekleniyor ve uygun sıra numarası veriliyor.
             {
-                musteri.YapilacakIslem.IslemTipi = Enums.IslemTipi.Bireysel;
-                siradakiMusteriler.Add(musteri);
-                musteri.SiraNo = _bireyselSiraNo++;
-            }
-            else
-            {
-                musteri.YapilacakIslem.IslemTipi = Enums.IslemTipi.Gise;
-                siradakiMusteriler.Add(musteri);
-                musteri.SiraNo = _giseSiraNo++;
+                if (musteri.TcNo.StartsWith('2'))
+                {
+                    musteri.YapilacakIslem.IslemTipi = Enums.IslemTipi.Bireysel;
+                    db.Gise.SiradakiMusteriler.Add(musteri);
+                    musteri.SiraNo = _normalSiraNo++;
+                }
+                else
+                {
+                    musteri.YapilacakIslem.IslemTipi = Enums.IslemTipi.Gise;
+                    db.Gise.SiradakiMusteriler.Add(musteri);
+                    musteri.SiraNo = _normalSiraNo++;
+                }
             }
         }
     }

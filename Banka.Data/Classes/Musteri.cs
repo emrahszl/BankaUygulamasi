@@ -13,12 +13,9 @@ namespace Banka.Data.Classes
             Ad = ad;
             Soyad = soyad;
             TcNo = tcNo;
-
-            if (tcNo.StartsWith('1'))
-                OncelikliMi = true;
-            else OncelikliMi = false;
         }
 
+        //Bir banka müşterisinin genel özellikleri
         public string Ad { get; }
 
         public string Soyad { get; }
