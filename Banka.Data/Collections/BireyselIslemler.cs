@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Banka.Data.Collections
 {
-    public class BireyselIslemler : BindingList<Islem>
+    public class BireyselIslemler : Islemler
     {
 
     }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Banka.Data.Collections
 {
-    public class VipIslemler : BindingList<Islem>
+    public class VipIslemler : Islemler
     {
 
     }

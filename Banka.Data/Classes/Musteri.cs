@@ -27,5 +27,10 @@ namespace Banka.Data.Classes
         public int SiraNo { get; set; }
 
         public Islem YapilacakIslem { get; set; } = new();
+
+        public void SiraAl(Numarator numarator)
+        {
+            numarator.SiraVer(this);
+        }
     }
 }

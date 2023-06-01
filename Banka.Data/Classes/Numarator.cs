@@ -12,11 +12,11 @@ namespace Banka.Data.Classes
         BankaVeri db = new BankaVeri();
 
         private static int _vipSiraNo = 1000; //Vip müşteriler için sıra numaraları 1000'den başlıyor.
-        private static int _normalSiraNo = 2000; //Normal müşteriler içinse 2000'den başlıyor. 
+        private static int _normalSiraNo; //Normal müşteriler içinse 0'dan başlıyor. 
 
         public void SiraVer(Musteri musteri)
         {
-            musteri.OncelikliMi = musteri.TcNo.StartsWith('1') ? true : false; //Bankanın vip müşterilerini anlaması için tc numarası '1' ile başlayan tüm müşteriler vip müşteri olarak kabul ediliyor. Buna göre müşterinin öncelikli mi değil mi olduğu atanıyor.
+            musteri.OncelikliMi = db.VipMusteriler.Any(x => x.TcNo == musteri.TcNo) ? true : false; //Banka gelen müşterinin tipine girilen tc no'ya göre karar vermektedir. Eğer numaratörden girilen tc bankanın veritabanındaki müşteriler içerisinde varsa vip müşteri olduğuna karar veriliyor. Buna göre müşterinin öncelikli mi değil mi olduğu atanıyor.
 
             if (musteri.OncelikliMi) //Müşteri öncelikliyse yapacağı işlemin tipi vip olarak atnıyor ve gişenin sıradaki müşterilerine eklenerek uygun sıra numarası veriliyor.
             {
@@ -26,7 +26,7 @@ namespace Banka.Data.Classes
             }
             else //Müşteri öncelikli değilse aynı şekilde yapacağı işlem tipine göre atama yapılıp gişenin sıradaki müşterilerine ekleniyor ve uygun sıra numarası veriliyor.
             {
-                if (musteri.TcNo.StartsWith('2'))
+                if (db.BireyselMusteriler.Any(x => x.TcNo == musteri.TcNo))
                 {
                     musteri.YapilacakIslem.IslemTipi = Enums.IslemTipi.Bireysel;
                     db.Gise.SiradakiMusteriler.Add(musteri);

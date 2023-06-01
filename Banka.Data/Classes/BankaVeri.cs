@@ -8,13 +8,15 @@ using System.Threading.Tasks;
 namespace Banka.Data.Classes
 {
     public class BankaVeri   //Bankanın tüm bilgilerinin tutulduğu yer.
-    {   
+    {
         public Islemler Islemler { get; set; } = new();
 
         public Numarator Numarator { get; set; } = new();
 
         public Gise Gise { get; set; } = new();
 
-        public Musteriler Musteriler { get; set; } = new();
+        public Musteriler VipMusteriler { get; set; } = new();
+
+        public Musteriler BireyselMusteriler { get; set; } = new();
     }
 }
