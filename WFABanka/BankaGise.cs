@@ -48,6 +48,7 @@ namespace WFABanka
                 return;
             }
 
+            btnSiradakiMusteri.Enabled = false;
             _db.Gise.SiradakiIslem();
             GisedeMusteriVarMi();
         }
@@ -73,6 +74,7 @@ namespace WFABanka
             _db.Gise.MusteriIsleminiTamamla();
             TamamlananIslemAdediYaz();
             btnIslemiTamamla.Enabled = false;
+            btnSiradakiMusteri.Enabled = true;
         }
 
         private void TamamlananIslemAdediYaz()

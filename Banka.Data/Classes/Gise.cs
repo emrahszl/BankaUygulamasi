@@ -21,7 +21,7 @@ namespace Banka.Data.Classes
 
         public void SiradakiIslem()
         {
-            IslemYapanMusteri = SiradakiMusteriler.FirstOrDefault(); //Sıradaki müşterilerin tamamını sıra numarasına göre sıralayıp ilk sıradaki müşteriyi gişe'nin müşterisine atıyor.
+            IslemYapanMusteri = SiradakiMusteriler.FirstOrDefault();
         }
 
         public void MusteriIsleminiTamamla()
@@ -31,14 +31,17 @@ namespace Banka.Data.Classes
                 case IslemTipi.Vip:
                     IslemYapanMusteri.YapilacakIslem.Durum = IslemDurumu.Tamamlandı;
                     TamamlananIslemler.VipIslemler.Add(IslemYapanMusteri.YapilacakIslem);
+                    SiradakiMusteriler.VipMusteriler.Remove(IslemYapanMusteri);
                     break;
                 case IslemTipi.Bireysel:
                     IslemYapanMusteri.YapilacakIslem.Durum = IslemDurumu.Tamamlandı;
                     TamamlananIslemler.BireyselIslemler.Add(IslemYapanMusteri.YapilacakIslem);
+                    SiradakiMusteriler.BireyselMusteriler.Remove(IslemYapanMusteri);
                     break;
                 default:
                     IslemYapanMusteri.YapilacakIslem.Durum = IslemDurumu.Tamamlandı;
                     TamamlananIslemler.GiseIslemleri.Add(IslemYapanMusteri.YapilacakIslem);
+                    SiradakiMusteriler.NormalMusteriler.Remove(IslemYapanMusteri);
                     break;
             }
 

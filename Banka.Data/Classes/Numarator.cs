@@ -17,6 +17,7 @@ namespace Banka.Data.Classes
         }
 
         private static int _vipSiraNo = 1000; //Vip müşteriler için sıra numaraları 1000'den başlıyor.
+        private static int _bireyselSiraNo = 500; //Bireysel müşteriler için sıra numaraları 500'den başlıyor.
         private static int _normalSiraNo = 1; //Normal müşteriler içinse 1'den başlıyor. 
 
         public void SiraVer(Musteri musteri)
@@ -27,7 +28,7 @@ namespace Banka.Data.Classes
             {
                 musteri.YapilacakIslem.IslemTipi = IslemTipi.Vip;
                 musteri.YapilacakIslem.Durum = IslemDurumu.Aktif;
-                _db.Gise.SiradakiMusteriler.Add(musteri);
+                _db.Gise.SiradakiMusteriler.VipMusteriler.Add(musteri);
                 musteri.SiraNo = _vipSiraNo++;
             }
             else //Müşteri öncelikli değilse aynı şekilde yapacağı işlem tipine göre atama yapılıp gişenin sıradaki müşterilerine ekleniyor ve uygun sıra numarası veriliyor.
@@ -36,14 +37,14 @@ namespace Banka.Data.Classes
                 {
                     musteri.YapilacakIslem.IslemTipi = IslemTipi.Bireysel;
                     musteri.YapilacakIslem.Durum = IslemDurumu.Aktif;
-                    _db.Gise.SiradakiMusteriler.Add(musteri);
-                    musteri.SiraNo = _normalSiraNo++;
+                    _db.Gise.SiradakiMusteriler.BireyselMusteriler.Add(musteri);
+                    musteri.SiraNo = _bireyselSiraNo++;
                 }
                 else
                 {
                     musteri.YapilacakIslem.IslemTipi = IslemTipi.Gise;
                     musteri.YapilacakIslem.Durum = IslemDurumu.Aktif;
-                    _db.Gise.SiradakiMusteriler.Add(musteri);
+                    _db.Gise.SiradakiMusteriler.NormalMusteriler.Add(musteri);
                     musteri.SiraNo = _normalSiraNo++;
                 }
             }
@@ -53,20 +54,22 @@ namespace Banka.Data.Classes
 
         public void SiradakiMusterileriSirala()
         {
-            var vipMusteriler = _db.Gise.SiradakiMusteriler.Where(x => x.OncelikliMi).OrderBy(x => x.SiraNo).ToList();
-            var bireyselMusteriler = _db.Gise.SiradakiMusteriler.Where(x => !x.OncelikliMi).OrderBy(x => x.SiraNo).ToList();
             _db.Gise.SiradakiMusteriler.Clear();
 
-            foreach (Musteri vipMusteri in vipMusteriler)
+            foreach (Musteri vipMusteri in _db.Gise.SiradakiMusteriler.VipMusteriler) //Öncelikliler önce ekleniyor.
             {
                 _db.Gise.SiradakiMusteriler.Add(vipMusteri);
             }
 
-            foreach (Musteri bireyselMusteri in bireyselMusteriler)
+            foreach (Musteri bireyselMusteri in _db.Gise.SiradakiMusteriler.BireyselMusteriler) //Daha sonra bireysel müşteriler ekleniyor.
             {
                 _db.Gise.SiradakiMusteriler.Add(bireyselMusteri);
             }
 
+            foreach (Musteri normalMusteri in _db.Gise.SiradakiMusteriler.NormalMusteriler) //En son bankanın direkt müşterisi olmayanlar müşteriler ekleniyor.
+            {
+                _db.Gise.SiradakiMusteriler.Add(normalMusteri);
+            }
         }
     }
 }

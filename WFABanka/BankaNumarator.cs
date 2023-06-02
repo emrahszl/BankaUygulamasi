@@ -91,34 +91,34 @@ namespace WFABanka
 
         private void btnSiraAl_Click(object sender, EventArgs e)
         {
-            if (TcMevcutMu())
-            {
-                var musteri = db.Musteriler.VipMusteriler.Any(x => x.TcNo == txtTcNo.Text) ? db.Musteriler.VipMusteriler.FirstOrDefault(x => x.TcNo == txtTcNo.Text) : db.Musteriler.BireyselMusteriler.FirstOrDefault(x => x.TcNo == txtTcNo.Text);
+            var musteri = SiradakiMusteriyiBelirle();
 
-                musteri!.SiraAl(db.Numarator);
-                EkranaYaz(musteri);
-            }
-            else
+            if (db.Gise.SiradakiMusteriler.Any(x => x.TcNo == musteri.TcNo))
             {
-                var musteri = new Musteri(txtTcNo.Text) { Ad = RastgeleAdUret(), Soyad = RastgeleSoyadUret() };
-                musteri.SiraAl(db.Numarator);
-                EkranaYaz(musteri);
+                MessageBox.Show("Girilen müşteriye ait sıra girişi mevcut! Tekrar sıra alınamaz.");
+                txtTcNo.Clear();
+                return;
             }
 
+            musteri.SiraAl(db.Numarator);
+            EkranaYaz(musteri);
             txtTcNo.Clear();
         }
 
         private void EkranaYaz(Musteri musteri)
         {
             lblMusteri.ForeColor = Color.Red;
-            lblMusteri.Text = $"{musteri.Ad} {musteri.Soyad}\r\nSıra No : {musteri.SiraNo}";
+            lblMusteri.Text = db.Musteriler.VipMusteriler.Any(x => x.TcNo == musteri.TcNo) || db.Musteriler.BireyselMusteriler.Any(x => x.TcNo == musteri.TcNo) ? $"{musteri.Ad} {musteri.Soyad}\r\nSıra No : {musteri.SiraNo}" : $"Sıra No: {musteri.SiraNo}";
         }
 
-        private bool TcMevcutMu()
+        private Musteri SiradakiMusteriyiBelirle()
         {
             string tcNo = txtTcNo.Text;
 
-            return db.Musteriler.VipMusteriler.Any(x => x.TcNo == tcNo) ? true : db.Musteriler.BireyselMusteriler.Any(x => x.TcNo == tcNo);
+            //SıraAl metoduna gönderilecek müşterinin tipine karar veriyoruz.
+            var musteri = db.Musteriler.VipMusteriler.Any(x => x.TcNo == tcNo) ? db.Musteriler.VipMusteriler.FirstOrDefault(x => x.TcNo == tcNo) : db.Musteriler.BireyselMusteriler.Any(x => x.TcNo == tcNo) ? db.Musteriler.BireyselMusteriler.FirstOrDefault(x => x.TcNo == tcNo) : new Musteri(txtTcNo.Text) { Ad = RastgeleAdUret(), Soyad = RastgeleSoyadUret() };
+
+            return musteri!;
         }
 
         private void btnGiseyeGit_Click(object sender, EventArgs e)
@@ -142,9 +142,9 @@ namespace WFABanka
 
         private void txtTcNo_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) //Basılan tuşun rakam olup olmadığını kontrol ediyor.
             {
-                e.Handled = true;
+                e.Handled = true; //Eğer basılan tuş rakam değilse yazmaya izin vermiyor.
             }
         }
     }
