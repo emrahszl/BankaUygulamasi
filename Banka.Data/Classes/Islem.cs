@@ -10,5 +10,12 @@ namespace Banka.Data.Classes
     public class Islem
     {
         public IslemTipi IslemTipi { get; set; }
+
+        public IslemDurumu Durum { get; set; }
+
+        public override string ToString()
+        {
+            return $"{IslemTipi} {Durum}";
+        }
     }
 }

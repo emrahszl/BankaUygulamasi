@@ -8,17 +8,15 @@ namespace Banka.Data.Classes
 {
     public class Musteri
     {
-        public Musteri(string ad, string soyad, string tcNo)
+        public Musteri(string tcNo)
         {
-            Ad = ad;
-            Soyad = soyad;
             TcNo = tcNo;
         }
 
         //Bir banka müşterisinin genel özellikleri
-        public string Ad { get; }
+        public string? Ad { get; set; }
 
-        public string Soyad { get; }
+        public string? Soyad { get; set; }
 
         public string TcNo { get; }
 

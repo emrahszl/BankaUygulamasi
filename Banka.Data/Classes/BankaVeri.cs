@@ -9,14 +9,21 @@ namespace Banka.Data.Classes
 {
     public class BankaVeri   //Bankanın tüm bilgilerinin tutulduğu yer.
     {
-        public Islemler Islemler { get; set; } = new();
+        public BankaVeri()
+        {
+            Numarator = new Numarator(this);
+        }
 
-        public Numarator Numarator { get; set; } = new();
+        public Islemler? Islemler { get; set; }
+
+        public Numarator Numarator { get; set; }
 
         public Gise Gise { get; set; } = new();
 
         public Musteriler VipMusteriler { get; set; } = new();
 
         public Musteriler BireyselMusteriler { get; set; } = new();
+
+        public Musteriler NormalMusteriler { get; set; } = new();
     }
 }

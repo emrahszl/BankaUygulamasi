@@ -11,9 +11,7 @@ namespace Banka.Data.Collections
     public class Islemler : BindingList<Islem>
     {
         public BireyselIslemler BireyselIslemler { get; set; } = new();
-
-        public GiseIslemleri GiseIslemleri { get; set; } = new();
-
         public VipIslemler VipIslemler { get; set; } = new();
+        public GiseIslemleri GiseIslemleri { get; set; } = new();
     }
 }
