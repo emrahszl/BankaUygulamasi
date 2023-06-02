@@ -10,6 +10,10 @@ namespace Banka.Data.Collections
 {
     public class Musteriler : BindingList<Musteri>
     {
+        public VipMusteriler VipMusteriler { get; set; } = new();
 
+        public BireyselMusteriler BireyselMusteriler { get; set; } = new();
+
+        public NormalMusteriler NormalMusteriler { get; set; } = new();
     }
 }

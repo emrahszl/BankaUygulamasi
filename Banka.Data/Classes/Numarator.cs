@@ -21,7 +21,7 @@ namespace Banka.Data.Classes
 
         public void SiraVer(Musteri musteri)
         {
-            musteri.OncelikliMi = _db.VipMusteriler.Any(x => x.TcNo == musteri.TcNo) ? true : false; //Banka gelen müşterinin tipine girilen tc no'ya göre karar vermektedir. Eğer numaratörden girilen tc bankanın veritabanındaki müşteriler içerisinde varsa vip müşteri olduğuna karar veriliyor. Buna göre müşterinin öncelikli mi değil mi olduğu atanıyor.
+            musteri.OncelikliMi = _db.Musteriler.VipMusteriler.Any(x => x.TcNo == musteri.TcNo) ? true : false; //Banka gelen müşterinin tipine girilen tc no'ya göre karar vermektedir. Eğer numaratörden girilen tc bankanın veritabanındaki müşteriler içerisinde varsa vip müşteri olduğuna karar veriliyor. Buna göre müşterinin öncelikli mi değil mi olduğu atanıyor.
 
             if (musteri.OncelikliMi) //Müşteri öncelikliyse yapacağı işlemin tipi vip olarak atnıyor ve gişenin sıradaki müşterilerine eklenerek uygun sıra numarası veriliyor.
             {
@@ -32,7 +32,7 @@ namespace Banka.Data.Classes
             }
             else //Müşteri öncelikli değilse aynı şekilde yapacağı işlem tipine göre atama yapılıp gişenin sıradaki müşterilerine ekleniyor ve uygun sıra numarası veriliyor.
             {
-                if (_db.BireyselMusteriler.Any(x => x.TcNo == musteri.TcNo))
+                if (_db.Musteriler.BireyselMusteriler.Any(x => x.TcNo == musteri.TcNo))
                 {
                     musteri.YapilacakIslem.IslemTipi = IslemTipi.Bireysel;
                     musteri.YapilacakIslem.Durum = IslemDurumu.Aktif;
@@ -47,6 +47,26 @@ namespace Banka.Data.Classes
                     musteri.SiraNo = _normalSiraNo++;
                 }
             }
+
+            SiradakiMusterileriSirala();
+        }
+
+        public void SiradakiMusterileriSirala()
+        {
+            var vipMusteriler = _db.Gise.SiradakiMusteriler.Where(x => x.OncelikliMi).OrderBy(x => x.SiraNo).ToList();
+            var bireyselMusteriler = _db.Gise.SiradakiMusteriler.Where(x => !x.OncelikliMi).OrderBy(x => x.SiraNo).ToList();
+            _db.Gise.SiradakiMusteriler.Clear();
+
+            foreach (Musteri vipMusteri in vipMusteriler)
+            {
+                _db.Gise.SiradakiMusteriler.Add(vipMusteri);
+            }
+
+            foreach (Musteri bireyselMusteri in bireyselMusteriler)
+            {
+                _db.Gise.SiradakiMusteriler.Add(bireyselMusteri);
+            }
+
         }
     }
 }

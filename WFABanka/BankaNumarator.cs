@@ -25,12 +25,12 @@ namespace WFABanka
 
         private void VerileriYukle()
         {
-            RastgeleNormalMusteriOlustur();
+            RastgeleBireyselMusteriOlustur();
             RastgeleVipMusteriOlustur();
             MusterileriYukle();
         }
 
-        private void RastgeleNormalMusteriOlustur()
+        private void RastgeleBireyselMusteriOlustur()
         {
             for (int i = 0; i < 10; i++)
             {
@@ -38,7 +38,7 @@ namespace WFABanka
                 string soyad = RastgeleSoyadUret();
                 string tcNo = RastgeleTcUret();
 
-                db.BireyselMusteriler.Add(new Musteri(tcNo) { Ad = ad, Soyad = soyad });
+                db.Musteriler.BireyselMusteriler.Add(new Musteri(tcNo) { Ad = ad, Soyad = soyad });
             }
         }
 
@@ -50,7 +50,7 @@ namespace WFABanka
                 string soyad = RastgeleSoyadUret();
                 string tcNo = RastgeleTcUret();
 
-                db.VipMusteriler.Add(new Musteri(tcNo) { Ad = ad, Soyad = soyad });
+                db.Musteriler.VipMusteriler.Add(new Musteri(tcNo) { Ad = ad, Soyad = soyad });
             }
         }
 
@@ -79,8 +79,8 @@ namespace WFABanka
             dgvBireyselMusteriler.AutoGenerateColumns = false;
             dgvVipMusteriler.DataSource = null;
             dgvBireyselMusteriler.DataSource = null;
-            dgvVipMusteriler.DataSource = db.VipMusteriler;
-            dgvBireyselMusteriler.DataSource = db.BireyselMusteriler;
+            dgvVipMusteriler.DataSource = db.Musteriler.VipMusteriler;
+            dgvBireyselMusteriler.DataSource = db.Musteriler.BireyselMusteriler;
         }
 
         private void txtTcNo_TextChanged(object sender, EventArgs e)
@@ -93,7 +93,7 @@ namespace WFABanka
         {
             if (TcMevcutMu())
             {
-                var musteri = db.VipMusteriler.Any(x => x.TcNo == txtTcNo.Text) ? db.VipMusteriler.FirstOrDefault(x => x.TcNo == txtTcNo.Text) : db.BireyselMusteriler.FirstOrDefault(x => x.TcNo == txtTcNo.Text);
+                var musteri = db.Musteriler.VipMusteriler.Any(x => x.TcNo == txtTcNo.Text) ? db.Musteriler.VipMusteriler.FirstOrDefault(x => x.TcNo == txtTcNo.Text) : db.Musteriler.BireyselMusteriler.FirstOrDefault(x => x.TcNo == txtTcNo.Text);
 
                 musteri!.SiraAl(db.Numarator);
                 EkranaYaz(musteri);
@@ -118,7 +118,7 @@ namespace WFABanka
         {
             string tcNo = txtTcNo.Text;
 
-            return db.VipMusteriler.Any(x => x.TcNo == tcNo) ? true : db.BireyselMusteriler.Any(x => x.TcNo == tcNo);
+            return db.Musteriler.VipMusteriler.Any(x => x.TcNo == tcNo) ? true : db.Musteriler.BireyselMusteriler.Any(x => x.TcNo == tcNo);
         }
 
         private void btnGiseyeGit_Click(object sender, EventArgs e)

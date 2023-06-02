@@ -21,16 +21,7 @@ namespace Banka.Data.Classes
 
         public void SiradakiIslem()
         {
-            if (SiradakiMusteriler.Any(x => x.OncelikliMi)) //Sıradaki müşterilerde öncelikli olan var mı diye kontrol ediliyor. Varsa if'e giriyor yoksa else kısmına geçiyor.
-            {
-                var oncelikliler = SiradakiMusteriler.Where(x => x.OncelikliMi).OrderBy(x => x.SiraNo).ToList(); //Sıradaki müşteriler listesinde öncelikli olanları sıra numarasına göre listeyelip oncelikliler içerisinde topluyoruz.
-                IslemYapanMusteri = oncelikliler.First();//oncelikliler listesinde sıra numarası en küçük olan müşteriyi getiriyor.
-            }
-            else
-            {
-                IslemYapanMusteri = SiradakiMusteriler.OrderBy(x => x.SiraNo).ToList().First(); //Sıradaki müşterilerin tamamını sıra numarasına göre sıralayıp ilk sıradaki müşteriyi gişe'nin müşterisine atıyor.
-            }
-
+            IslemYapanMusteri = SiradakiMusteriler.FirstOrDefault(); //Sıradaki müşterilerin tamamını sıra numarasına göre sıralayıp ilk sıradaki müşteriyi gişe'nin müşterisine atıyor.
         }
 
         public void MusteriIsleminiTamamla()

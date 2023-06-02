@@ -14,16 +14,12 @@ namespace Banka.Data.Classes
             Numarator = new Numarator(this);
         }
 
-        public Islemler? Islemler { get; set; }
+        public Islemler Islemler { get; set; } = new();
 
         public Numarator Numarator { get; set; }
 
         public Gise Gise { get; set; } = new();
 
-        public Musteriler VipMusteriler { get; set; } = new();
-
-        public Musteriler BireyselMusteriler { get; set; } = new();
-
-        public Musteriler NormalMusteriler { get; set; } = new();
+        public Musteriler Musteriler { get; set; } = new();
     }
 }

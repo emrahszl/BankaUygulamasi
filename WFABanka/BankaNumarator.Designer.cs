@@ -39,16 +39,14 @@
             label3 = new Label();
             scMusteriler = new SplitContainer();
             dgvVipMusteriler = new DataGridView();
+            dgvBireyselMusteriler = new DataGridView();
+            label4 = new Label();
             Column1 = new DataGridViewTextBoxColumn();
             Column2 = new DataGridViewTextBoxColumn();
             Column3 = new DataGridViewTextBoxColumn();
-            Column4 = new DataGridViewTextBoxColumn();
-            dgvBireyselMusteriler = new DataGridView();
             dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
-            label4 = new Label();
             ((System.ComponentModel.ISupportInitialize)scMusteriler).BeginInit();
             scMusteriler.Panel1.SuspendLayout();
             scMusteriler.Panel2.SuspendLayout();
@@ -179,7 +177,7 @@
             dgvVipMusteriler.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvVipMusteriler.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvVipMusteriler.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvVipMusteriler.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3, Column4 });
+            dgvVipMusteriler.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3 });
             dgvVipMusteriler.Location = new Point(0, 28);
             dgvVipMusteriler.MultiSelect = false;
             dgvVipMusteriler.Name = "dgvVipMusteriler";
@@ -189,6 +187,34 @@
             dgvVipMusteriler.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvVipMusteriler.Size = new Size(458, 162);
             dgvVipMusteriler.TabIndex = 26;
+            // 
+            // dgvBireyselMusteriler
+            // 
+            dgvBireyselMusteriler.AllowUserToAddRows = false;
+            dgvBireyselMusteriler.AllowUserToDeleteRows = false;
+            dgvBireyselMusteriler.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvBireyselMusteriler.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dgvBireyselMusteriler.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvBireyselMusteriler.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3 });
+            dgvBireyselMusteriler.Location = new Point(0, 26);
+            dgvBireyselMusteriler.MultiSelect = false;
+            dgvBireyselMusteriler.Name = "dgvBireyselMusteriler";
+            dgvBireyselMusteriler.ReadOnly = true;
+            dgvBireyselMusteriler.RowHeadersVisible = false;
+            dgvBireyselMusteriler.RowTemplate.Height = 25;
+            dgvBireyselMusteriler.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvBireyselMusteriler.Size = new Size(458, 162);
+            dgvBireyselMusteriler.TabIndex = 27;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 36F, FontStyle.Regular, GraphicsUnit.Point);
+            label4.Location = new Point(137, 68);
+            label4.Name = "label4";
+            label4.Size = new Size(276, 65);
+            label4.TabIndex = 7;
+            label4.Text = "Hoşgeldiniz";
             // 
             // Column1
             // 
@@ -211,31 +237,6 @@
             Column3.Name = "Column3";
             Column3.ReadOnly = true;
             // 
-            // Column4
-            // 
-            Column4.DataPropertyName = "SiraNo";
-            Column4.HeaderText = "Sıra No";
-            Column4.Name = "Column4";
-            Column4.ReadOnly = true;
-            // 
-            // dgvBireyselMusteriler
-            // 
-            dgvBireyselMusteriler.AllowUserToAddRows = false;
-            dgvBireyselMusteriler.AllowUserToDeleteRows = false;
-            dgvBireyselMusteriler.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvBireyselMusteriler.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            dgvBireyselMusteriler.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvBireyselMusteriler.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3, dataGridViewTextBoxColumn4 });
-            dgvBireyselMusteriler.Location = new Point(0, 26);
-            dgvBireyselMusteriler.MultiSelect = false;
-            dgvBireyselMusteriler.Name = "dgvBireyselMusteriler";
-            dgvBireyselMusteriler.ReadOnly = true;
-            dgvBireyselMusteriler.RowHeadersVisible = false;
-            dgvBireyselMusteriler.RowTemplate.Height = 25;
-            dgvBireyselMusteriler.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvBireyselMusteriler.Size = new Size(458, 162);
-            dgvBireyselMusteriler.TabIndex = 27;
-            // 
             // dataGridViewTextBoxColumn1
             // 
             dataGridViewTextBoxColumn1.DataPropertyName = "TcNo";
@@ -256,23 +257,6 @@
             dataGridViewTextBoxColumn3.HeaderText = "Soyad";
             dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             dataGridViewTextBoxColumn3.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            dataGridViewTextBoxColumn4.DataPropertyName = "SiraNo";
-            dataGridViewTextBoxColumn4.HeaderText = "Sıra No";
-            dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            dataGridViewTextBoxColumn4.ReadOnly = true;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 36F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.Location = new Point(137, 68);
-            label4.Name = "label4";
-            label4.Size = new Size(276, 65);
-            label4.TabIndex = 7;
-            label4.Text = "Hoşgeldiniz";
             // 
             // BankaNumarator
             // 
@@ -318,14 +302,12 @@
         private SplitContainer scMusteriler;
         private DataGridView dgvVipMusteriler;
         private DataGridView dgvBireyselMusteriler;
+        private Label label4;
         private DataGridViewTextBoxColumn Column1;
         private DataGridViewTextBoxColumn Column2;
         private DataGridViewTextBoxColumn Column3;
-        private DataGridViewTextBoxColumn Column4;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private Label label4;
     }
 }
