@@ -29,7 +29,7 @@ namespace WFABanka
             if (_db.Gise.IslemYapanMusteri != null)
             {
                 lblSiraNo.Text = _db.Gise.IslemYapanMusteri!.SiraNo.ToString("000");
-                btnIslemiTamamla.Enabled = true;
+                btnIslemiTamamla.Enabled = _db.Gise.IslemiTamamlananMusteriler.Contains(_db.Gise.IslemYapanMusteri) ? false : true;
             }
         }
 
