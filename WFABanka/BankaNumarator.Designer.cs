@@ -115,7 +115,7 @@
             btnGiseyeGit.Font = new Font("Segoe UI", 20F, FontStyle.Regular, GraphicsUnit.Point);
             btnGiseyeGit.Location = new Point(594, 473);
             btnGiseyeGit.Name = "btnGiseyeGit";
-            btnGiseyeGit.Size = new Size(458, 88);
+            btnGiseyeGit.Size = new Size(458, 79);
             btnGiseyeGit.TabIndex = 13;
             btnGiseyeGit.Text = "GİŞEYE GİT";
             btnGiseyeGit.UseVisualStyleBackColor = true;
