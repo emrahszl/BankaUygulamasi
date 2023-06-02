@@ -293,7 +293,6 @@
             Name = "BankaNumarator";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Numaratör";
-            FormClosing += BankaNumarator_FormClosing;
             scMusteriler.Panel1.ResumeLayout(false);
             scMusteriler.Panel1.PerformLayout();
             scMusteriler.Panel2.ResumeLayout(false);
